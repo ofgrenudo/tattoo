@@ -1,3 +1,6 @@
+mod device;
+
+use device::{make, model, serialnumber};
 use std::env;
 
 fn main() {
@@ -12,16 +15,17 @@ fn main() {
     * --help
     */
     let args: Vec<String> = env::args().collect();
-    let query = &args[1];
+    let query = &args[1]; // What happens when no argument is provided? Go into console mode!
 
     match query.as_str() {
-        "--update" => println!("Updating the database."),
-        "--all" => println!("Printing all device information."),
-        "--assettag" => println!("Printing asset tag."),
-        "--serialnumber" => println!("Printing serial number."),
-        "--make" => println!("Printing device's manufacturer."),
-        "--model" => println!("Printing device's model."),
-        "--help" => println!("Displaying help menu..."),
-        _ => println!("Unable to find command."),
+        "--create" => device::database::update(),
+        "--update" => device::database::update(),
+        "--all" => device::help::device_information(),
+        "--assettag" => device::assettag::get(),
+        "--serialnumber" => { let _serialnumber = device::serialnumber::get(); },
+        "--make" => { let _make = device::make::get(); },
+        "--model" => { let _model = device::model::get(); },
+        "--help" => { device::help::show_menu(); },
+        _ => { device::help::no_command_entered(); },
     }
 }
