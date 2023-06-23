@@ -1,3 +1,4 @@
+mod registry;
 mod device;
 mod ui;
 
@@ -8,7 +9,7 @@ fn main() {
     let mut model = device::model::get();
 
     // 1. Check registry for stored data.
-
+    registry::tattoo_exists();
     // 2. If registry does not have stored data, gather data and present in form.
 
     // 3. Present form, on confirmation submit data to registry.
