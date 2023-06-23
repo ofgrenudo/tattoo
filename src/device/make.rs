@@ -1,10 +1,10 @@
 use std::process::Command;
 
-pub fn get() -> String{
+pub fn get() -> String {
     let output = Command::new("cmd")
         .args(["/C", "wmic computersystem get manufacturer"])
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute process, please ensure you are running on windows!");
 
     let parse_me = String::from_utf8_lossy(&output.stdout);
     let parsed = parse_me.trim();
@@ -16,6 +16,6 @@ pub fn get() -> String{
     let parsed: Vec<&str> = parse_me.lines().collect();
     let manufacturer = parsed[1];
     
-    println!("{}", manufacturer);
+    // println!("{}", manufacturer);
     manufacturer.to_owned()
 }
