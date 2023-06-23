@@ -50,11 +50,33 @@ impl TattooUI {
         nwg::stop_thread_dispatch();
     }
 
+    fn set_asset_tag(&self, asset_tag: String) {
+        self.asset_tag_edit.set_text(&asset_tag);
+    }
+
+    fn set_serial_number(&self, serial_number: String) {
+        self.serial_number_edit.set_text(&serial_number);
+    }
+
+    fn set_manufacturer(&self, manufacturer: String) {
+        self.manufacturer_edit.set_text(&manufacturer);
+    }
+
+    fn set_model(&self, make: String) {
+        self.model_edit.set_text(&make);
+    }
+
 }
 
-pub fn start() {
+pub fn start(asset_tag: Option<String>, serial_number: Option<String>, manufacturer: Option<String>, model: Option<String>) {
     nwg::init().expect("Failed to init Native Windows GUI");
-    let _app = TattooUI::build_ui(Default::default()).expect("Failed to build UI");
+    let app: tattoo_u_i_ui::TattooUIUi = TattooUI::build_ui(Default::default()).expect("Failed to build UI");
     
+    // Set Fields to Information Passed to Function
+    app.set_asset_tag(asset_tag.unwrap_or("".to_string()));
+    app.set_manufacturer(manufacturer.unwrap_or("".to_string()));
+    app.set_serial_number(serial_number.unwrap_or("".to_string()));
+    app.set_model(model.unwrap_or("".to_string()));
+
     nwg::dispatch_thread_events();
 }
