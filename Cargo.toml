@@ -8,7 +8,7 @@ name = "tattoo"
 path = "src/lib.rs"
 
 [[bin]]
-name = "tatto_bin"
+name = "tattoo_bin"
 path = "src/main.rs"
 
 [dependencies]
