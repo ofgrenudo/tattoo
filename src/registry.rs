@@ -1,24 +1,20 @@
+pub mod serialnumber;
+pub mod assettag;
+pub mod make;
+pub mod model;
+
 use std::io;
 use winreg::enums::*;
 use winreg::RegKey;
 
-pub fn tattoo_exists() -> io::Result<()> {
+pub fn check_exists() -> Result<(), ()> {
     let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
     let registry_exists = hklm.open_subkey("SOFTWARE\\Tattoo");
-    
+
     match registry_exists {  
         Ok(repository) => {
-            let pf: String = repository.get_value("damn_daniel")?;
-            println!("{}", pf);
+            Ok(())
         },
-        Err(error) => initialize(),
+        Err(error) => Err(()),
     }
-
-    Ok(())
-}
-
-fn initialize() {
-    println!("Could not find registry keys... Initializing now.");
-    
-
 }

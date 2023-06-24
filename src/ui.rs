@@ -4,6 +4,9 @@ use native_windows_derive as nwd;
 use nwd::NwgUi;
 use nwg::NativeUi;
 
+use tattoo::device;
+use tattoo::registry;
+
 #[derive(Default, NwgUi)]
 pub struct TattooUI {
     // Was 300x160
@@ -50,33 +53,54 @@ impl TattooUI {
         nwg::stop_thread_dispatch();
     }
 
-    fn set_asset_tag(&self, asset_tag: String) {
+    fn set_asset_tag(&self, asset_tag: &str) {
         self.asset_tag_edit.set_text(&asset_tag);
     }
 
-    fn set_serial_number(&self, serial_number: String) {
+    fn set_serial_number(&self, serial_number: &str) {
         self.serial_number_edit.set_text(&serial_number);
     }
 
-    fn set_manufacturer(&self, manufacturer: String) {
+    fn set_manufacturer(&self, manufacturer: &str) {
         self.manufacturer_edit.set_text(&manufacturer);
     }
 
-    fn set_model(&self, make: String) {
+    fn set_model(&self, make: &str) {
         self.model_edit.set_text(&make);
     }
 
 }
 
-pub fn start(asset_tag: Option<String>, serial_number: Option<String>, manufacturer: Option<String>, model: Option<String>) {
+pub fn start() {
+
+    let manufacturer = "";
+    let serial_number = "";
+    let model = "";    
+
+    let registry_exists = registry::check_exists();
+
+
+
+    match registry_exists {
+        Ok(()) => {
+            registry::assettag::get();
+        },
+        Err(()) => {
+            let manufacturer = device::make::get();
+            let serial_number = device::serialnumber::get();
+            let model = device::model::get();    
+        },
+    }
+
+
     nwg::init().expect("Failed to init Native Windows GUI");
     let app: tattoo_u_i_ui::TattooUIUi = TattooUI::build_ui(Default::default()).expect("Failed to build UI");
-    
-    // Set Fields to Information Passed to Function
-    app.set_asset_tag(asset_tag.unwrap_or("".to_string()));
-    app.set_manufacturer(manufacturer.unwrap_or("".to_string()));
-    app.set_serial_number(serial_number.unwrap_or("".to_string()));
-    app.set_model(model.unwrap_or("".to_string()));
+
+    // Set Fields to Information Passed to Function Device
+    app.set_asset_tag("");
+    app.set_manufacturer(manufacturer);
+    app.set_serial_number(serial_number);
+    app.set_model(model);
 
     nwg::dispatch_thread_events();
 }
