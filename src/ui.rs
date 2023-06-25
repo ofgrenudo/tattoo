@@ -8,7 +8,7 @@ use tattoo_lib::registry;
 
 #[derive(Default, NwgUi)]
 pub struct TattooUI {
-    #[nwg_control(size: (300, 230), position: (300, 300), title: "Tattoo", flags: "WINDOW|VISIBLE")]
+    #[nwg_control(size: (300, 230), position: (300, 300), title: "Tattoo")]
     #[nwg_events( OnWindowClose: [TattooUI::safely_exit] )]
     window: nwg::Window,
 
