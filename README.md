@@ -1,8 +1,6 @@
 ![Workflow Status](https://github.com/ofgrenudo/tattoo/actions/workflows/rust.yml/badge.svg)
 
-**Written in** ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
-
-# Tattoo 
+# Tattoo
 
 The Tattoo Update Script is a PowerShell script designed to collect device information on run, and insert it into the Registry of the device. This information is for archival purposes and will remain there as a level of forensics, as well as to allow for managment / exporting to a spread sheet or database later down the road. Currently this script will only gather device information and tattoo it. You will need another script to accompany it to be able to upload that information into whatever asset inventory system you are using.
 Prerequisites
