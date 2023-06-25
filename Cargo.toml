@@ -4,12 +4,8 @@ version = "0.2.3"
 edition = "2021"
 
 [lib]
-name = "tattoo"
+name = "tattoo_lib"
 path = "src/lib.rs"
-
-[[bin]]
-name = "tattoo_bin"
-path = "src/main.rs"
 
 [dependencies]
 native-windows-derive = "1.0.5"
