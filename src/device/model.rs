@@ -10,8 +10,8 @@ pub fn get() -> String {
     let parsed = parse_me.trim();
 
     let parse_me = parsed;
-    let parse_me = parse_me.replace("\r", ""); 
-    // let mut parse_me = parse_me.replace(" ", ""); 
+    let parse_me = parse_me.replace("\r", "");
+    // let mut parse_me = parse_me.replace(" ", "");
 
     let parsed: Vec<&str> = parse_me.lines().collect();
     let model = parsed[1];
