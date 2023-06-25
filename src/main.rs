@@ -1,5 +1,5 @@
 mod ui;
 
 fn main() {
-    ui::start();
+    ui::begin_ui();
 }
