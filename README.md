@@ -2,20 +2,17 @@
 
 # Tattoo
 
-The Tattoo Update Script is a PowerShell script designed to collect device information on run, and insert it into the Registry of the device. This information is for archival purposes and will remain there as a level of forensics, as well as to allow for managment / exporting to a spread sheet or database later down the road. Currently this script will only gather device information and tattoo it. You will need another script to accompany it to be able to upload that information into whatever asset inventory system you are using.
-Prerequisites
+Tattoo is a program designed to automatically collect device information on run, and insert it into the registry of the device. This information is intended for archival purposes and will remain there for later inspection. Some of the bennifits of storing information in the registry is that it provides a static and proctected way to maintain information like,
 
-- Windows >=10, or Windows Server 2016 or later, GNU/Linux, Macos
+- The day the computer was deployed.
+- The task sequence used when you deployed the computer.
+- The asset tag assigned.
+- The device name when deployed.
+- The serial number of the device.
+- The device model.
+- The device make.
+
+## Requirements
+
+- Windows >=10, or Windows Server 2016.
 - PowerShell 5.1 or later
-- MECM Task Sequence Variable OSDAssetTag is already set. (If your unsure where to put this variable, it should be in the same place as your OSDComputerName) variable.
-
-## Information Collected
-
-- Deployment Date
-- Task Sequence Name
-- Task Sequence ID
-- Asset Tag
-- Device Name
-- Serial Number
-- Device Model
-- Device Make
