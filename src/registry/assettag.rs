@@ -1,22 +1,15 @@
-use std::io;
-use std::path::Path;
 use winreg::enums::*;
 use winreg::RegKey;
 
-pub fn get() -> io::Result<()> {
+pub fn get() -> String {
     let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
-    let cur_ver = hklm.open_subkey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion")?;
-    let path = Path::new("Tattoo").join("example_insert");
+    let cur_ver = hklm.open_subkey("SOFTWARE\\Tattoo").expect("");
 
-    hklm.open_subkey(&path).unwrap_or_else(|e| match e.kind() {
-        io::ErrorKind::NotFound => panic!("Key doesn't exist"),
-        io::ErrorKind::PermissionDenied => panic!("Access denied"),
-        _ => panic!("{:?}", e),
-    });
+    let asset_tag = cur_ver.get_value("asset_tag").unwrap_or("".to_string());
 
-    Ok(())
+    asset_tag
 }
 
-pub fn set() -> &'static str {
-    ""
+pub fn set() -> String {
+    "".to_string()
 }
