@@ -1,5 +1,15 @@
 use std::process::Command;
 
+
+/// This function returns a string. It works by contacting parsing a wmic command containing the manufacturer registered in the devices bios.
+/// 
+/// # Examples
+/// ```rust,ignore
+/// use tattoo_lib::device;
+/// 
+/// let make: String = device::make::get();
+/// ```
+/// 
 pub fn get() -> String {
     let output = Command::new("cmd")
         .args(["/C", "wmic computersystem get manufacturer"])
@@ -18,4 +28,10 @@ pub fn get() -> String {
 
     // println!("{}", manufacturer);
     manufacturer.to_string()
+}
+
+#[test]
+fn test() {
+    // While this seems pointless, this will confirm with us weather or not we are on a windows device.
+    assert_eq!(get(), get());
 }

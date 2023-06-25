@@ -1,19 +1,54 @@
+![Workflow Status](https://github.com/ofgrenudo/tattoo/actions/workflows/rust.yml/badge.svg)
+
 # Tattoo
 
-The Tattoo Update Script is a PowerShell script designed to collect device information on run, and insert it into the Registry of the device. This information is for archival purposes and will remain there as a level of forensics, as well as to allow for managment / exporting to a spread sheet or database later down the road. Currently this script will only gather device information and tattoo it. You will need another script to accompany it to be able to upload that information into whatever asset inventory system you are using.
-Prerequisites
+Tattoo is a program designed to automatically collect device information on run, and insert it into the registry of the device. This information is intended for archival purposes and will remain there for later inspection. Some of the bennifits of storing information in the registry is that it provides a static and proctected way to maintain information like,
 
-- Windows >=10, or Windows Server 2016 or later, GNU/Linux, Macos
+- The day the computer was deployed.
+- The task sequence used when you deployed the computer.
+- The asset tag assigned.
+- The device name when deployed.
+- The serial number of the device.
+- The device model.
+- The device make.
+
+
+## Requirements
+
+- Windows >=10, or Windows Server 2016.
 - PowerShell 5.1 or later
-- MECM Task Sequence Variable OSDAssetTag is already set. (If your unsure where to put this variable, it should be in the same place as your OSDComputerName) variable.
 
-## Information Collected
+## Running
 
-- Deployment Date
-- Task Sequence Name
-- Task Sequence ID
-- Asset Tag
-- Device Name
-- Serial Number
-- Device Model
-- Device Make
+In order to run tattoo.exe you will need at a minimum, the following file along side the executable.
+
+tatto.exe.manifest
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+<assemblyIdentity
+    version="1.0.0.0"
+    processorArchitecture="*"
+    name="app"
+    type="win32"
+/>
+<dependency>
+    <dependentAssembly>
+        <assemblyIdentity
+            type="win32"
+            name="Microsoft.Windows.Common-Controls"
+            version="6.0.0.0"
+            processorArchitecture="*"
+            publicKeyToken="6595b64144ccf1df"
+            language="*"
+        />
+    </dependentAssembly>
+</dependency>
+</assembly>
+```
+
+Otherwise it will throw an error `exit code: 0xc0000139, STATUS_ENTRYPOINT_NOT_FOUND` when trying to run the program. This is a bug with the native windows gui API that has not been resolved.
+
+## Example Screenshots
+
+![tattoo-ui](./docs/tattoo-ui.png)
