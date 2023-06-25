@@ -2,6 +2,10 @@
 name = "tattoo"
 version = "0.3.1"
 edition = "2021"
+authors = [ "Joshua Winters-Brown" ]
+readme = "README.md"
+repository = "https://github.com/ofgrenudo/tattoo"
+license-file = "LICENSE.md"
 
 [lib]
 name = "tattoo_lib"

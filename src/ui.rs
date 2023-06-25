@@ -1,11 +1,10 @@
-extern crate native_windows_gui as nwg;
 extern crate native_windows_derive as nwd;
+extern crate native_windows_gui as nwg;
 use nwd::NwgUi;
 use nwg::NativeUi;
 
 use tattoo_lib::device;
 use tattoo_lib::registry;
-
 
 #[derive(Default, NwgUi)]
 pub struct TattooUI {
@@ -39,13 +38,15 @@ pub struct TattooUI {
 
     #[nwg_control(text: "Commit", size: (280, 25), position: (10, 195))]
     #[nwg_events( OnButtonClick: [TattooUI::confirm_input] )]
-    commit: nwg::Button
+    commit: nwg::Button,
 }
 
 impl TattooUI {
-
     fn confirm_input(&self) {
-        nwg::simple_message("Confirmation", &format!("{}", "Tattoo was able to successfully submit the data."));
+        nwg::simple_message(
+            "Confirmation",
+            &format!("{}", "Tattoo was able to successfully submit the data."),
+        );
     }
 
     fn safely_exit(&self) {
@@ -67,7 +68,6 @@ impl TattooUI {
     fn set_model(&self, make: &str) {
         self.model_edit.set_text(&make);
     }
-
 }
 
 pub fn begin_ui() {
@@ -85,22 +85,29 @@ pub fn begin_ui() {
             _manufacturer = registry::make::get();
             _serial_number = registry::serialnumber::get();
             _model = registry::model::get();
-        },
+        }
         Err(()) => {
             _manufacturer = device::make::get();
             _serial_number = device::serialnumber::get();
             _model = device::model::get();
-        },
+        }
     }
 
     // Catch Null Values
-    if _manufacturer == "".to_string() { _manufacturer = device::make::get(); }
-    if _serial_number == "".to_string() { _serial_number = device::serialnumber::get(); }
-    if _model == "".to_string() { _model = device::model::get(); }
+    if _manufacturer == "".to_string() {
+        _manufacturer = device::make::get();
+    }
+    if _serial_number == "".to_string() {
+        _serial_number = device::serialnumber::get();
+    }
+    if _model == "".to_string() {
+        _model = device::model::get();
+    }
 
     // Begin Loading App
     nwg::init().expect("Failed to init Native Windows GUI");
-    let app: tattoo_u_i_ui::TattooUIUi = TattooUI::build_ui(Default::default()).expect("Failed to build UI");
+    let app: tattoo_u_i_ui::TattooUIUi =
+        TattooUI::build_ui(Default::default()).expect("Failed to build UI");
 
     // Set Fields to Information Passed to Function Device
     app.set_asset_tag(&_asset_tag);
