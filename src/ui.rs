@@ -77,7 +77,7 @@ pub fn begin_ui() {
     let mut _model = "".to_string();
 
     let registry_exists = registry::check_exists();
-    println!("{:?}", registry_exists);
+    // println!("{:?}", registry_exists);
 
     match registry_exists {
         Ok(()) => {
