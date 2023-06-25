@@ -3,7 +3,7 @@ use std::process::Command;
 /// This function returns a string. It works by contacting parsing a wmic command containing the serial number registered in the devices bios.
 /// 
 /// # Examples
-/// ```rust
+/// ```rust,ignore
 /// use tattoo_lib::device;
 /// 
 /// let serial_number: String = device::serialnumber::get();

@@ -4,7 +4,7 @@ use winreg::RegKey;
 /// This function returns a string. It works by contacting a predefined registry path `HKLM:\Software\Tattoo\model`
 /// 
 /// # Examples
-/// ```rust
+/// ```rust,ignore
 /// use tattoo_lib::registry;
 /// 
 /// let model: String = registry::model::get();

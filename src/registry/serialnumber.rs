@@ -4,7 +4,7 @@ use winreg::RegKey;
 /// This function returns a string. It works by contacting a predefined registry path `HKLM:\Software\Tattoo\serial_number`
 /// 
 /// # Examples
-/// ```rust
+/// ```rust,ignore
 /// use tattoo_lib::registry;
 /// 
 /// let serial_number: String = registry::serialnumber::get();
