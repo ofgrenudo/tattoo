@@ -1,5 +1,9 @@
-.vscode/*
-/target
-Cargo.lock
+# Keep these files maybe?
 !/target/debug/tattoo.exe.manifest
 !/target/release/tattoo.exe.manifest
+
+# Get rid of these files
+.vscode/
+/target
+Cargo.lock
+.DS_Store
