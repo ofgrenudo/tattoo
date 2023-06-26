@@ -1,4 +1,4 @@
-![Workflow Status](https://github.com/ofgrenudo/tattoo/actions/workflows/rust.yml/badge.svg)
+![Workflow Status](https://github.com/ofgrenudo/tattoo/actions/workflows/ci.yml/badge.svg)
 
 # Tattoo
 
