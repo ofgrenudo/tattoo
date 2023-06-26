@@ -1,3 +1,5 @@
 .vscode/*
 /target
 Cargo.lock
+!/target/debug/tattoo.exe.manifest
+!/target/release/tattoo.exe.manifest
