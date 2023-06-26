@@ -20,6 +20,16 @@ pub fn get() -> String {
     manufacturer
 }
 
+/// This function takes a `String` as an input and will use it to set the value in the registry.
+/// 
+/// ## Example Usage
+/// 
+/// ```rust,ignore
+/// use tattoo_lib::registry;
+/// 
+/// registry::make::set("Dell");
+/// ```
+/// 
 pub fn set(key_value: String) {
     let key_name = "manufacturer";
 

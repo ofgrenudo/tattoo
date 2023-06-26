@@ -20,12 +20,21 @@ pub fn get() -> String {
     asset_tag
 }
 
+/// This function takes a `String` as an input and will use it to set the value in the registry.
+/// 
+/// ## Example Usage
+/// 
+/// ```rust,ignore
+/// use tattoo_lib::registry;
+/// 
+/// registry::assettag::set("98513279");
+/// ```
+/// 
 pub fn set(key_value: String) {
     let key_name = "asset_tag";
 
     let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
     let _cur_ver = hklm.open_subkey("SOFTWARE\\Tattoo").expect("Unable to open Tattoo Directory");
-
 
     let path = Path::new("Software").join("Tattoo");
     let (key, _disp) = hklm.create_subkey(&path).expect("Unable to create new key!");

@@ -1,18 +1,32 @@
 //!
-//! Device contains three modules to it.
+//! The registry contains four modules to it.
 //! 
-//! 1. make
-//! 2. model
-//! 3. serialnumber
+//! 1. assettag 
+//! 2. make
+//! 3. model
+//! 4. serialnumber
 //! 
 //! For more information on each individual module, please navigate to their individual page.
 //! 
-//! # Example Syntax
+//! > WARNING! In order to use the set features of this library, you will need to have administrative access to the system. Without it, you will no be able use these functions without a panic.
 //! 
-//! ```rust
-//! use tattoo_lib::device;
+//! # Example Usage
 //! 
-//! println!("{}", device::serialnumber::get());
+//! ```rust,ignore
+//! use tattoo_lib::registry;
+//! 
+//! // Gather Information
+//! let asset_tag = registry::assettag::get();
+//! let make = registry::make::get();
+//! let model = registry::model::get();
+//! let serial_number = registry::serialnumber::get();
+//! 
+//! println!("Asset Tag: {}\nMake: {}\nModel: {}\nSerial Number: {}", asset_tag, make, model, serial_number);
+//! 
+//! // NOTE: you will need administrative access to write to the registry. I cannot change this.
+//! registry::assettag::set("123456789".to_string());
+//! 
+//! assert_eq!(registry::assettag::get().as_str(), "123456789");
 //! ```
 //!
 pub mod assettag;
