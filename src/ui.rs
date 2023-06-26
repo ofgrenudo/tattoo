@@ -43,6 +43,11 @@ pub struct TattooUI {
 
 impl TattooUI {
     fn confirm_input(&self) {
+        registry::assettag::set(self.get_asset_tag());
+        registry::make::set(self.get_manufacturer());
+        registry::model::set(self.get_model());
+        registry::serialnumber::set(self.get_serial_number());
+        
         nwg::simple_message(
             "Confirmation",
             &format!("{}", "Tattoo was able to successfully submit the data."),
@@ -57,17 +62,34 @@ impl TattooUI {
         self.asset_tag_edit.set_text(&asset_tag);
     }
 
+    fn get_asset_tag(&self) -> String {
+        self.asset_tag_edit.text()
+    }
+
     fn set_serial_number(&self, serial_number: &str) {
         self.serial_number_edit.set_text(&serial_number);
+    }
+
+    fn get_serial_number(&self) -> String {
+        self.serial_number_edit.text()
     }
 
     fn set_manufacturer(&self, manufacturer: &str) {
         self.manufacturer_edit.set_text(&manufacturer);
     }
 
+    fn get_manufacturer (&self) -> String {
+        self.manufacturer_edit.text()
+    }
+
     fn set_model(&self, make: &str) {
         self.model_edit.set_text(&make);
     }
+
+    fn get_model (&self) -> String {
+        self.model_edit.text()
+    }
+
 }
 
 pub fn begin_ui() {

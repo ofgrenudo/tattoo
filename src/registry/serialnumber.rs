@@ -1,3 +1,4 @@
+use std::path::Path;
 use winreg::enums::*;
 use winreg::RegKey;
 
@@ -19,6 +20,22 @@ pub fn get() -> String {
     serial_number
 }
 
-pub fn set() -> String {
-    "".to_string()
+pub fn set(key_value: String) {
+    let key_name= "serial_number";
+
+    let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
+    let _cur_ver = hklm.open_subkey("SOFTWARE\\Tattoo").expect("Unable to open Tattoo Directory");
+
+
+    let path = Path::new("Software").join("Tattoo");
+    let (key, _disp) = hklm.create_subkey(&path).expect("Unable to create new key!");
+    
+    key.delete_value(key_name).unwrap_or(());
+
+    // match disp {
+    //     REG_CREATED_NEW_KEY => println!("A new key has been created"),
+    //     REG_OPENED_EXISTING_KEY => println!("An existing key has been opened"),
+    // }
+
+    key.set_value(key_name, &key_value).expect("Could not create key!");
 }
