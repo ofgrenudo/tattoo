@@ -7,6 +7,7 @@ use tattoo_lib::device;
 use tattoo_lib::registry;
 
 #[derive(Default, NwgUi)]
+#[depreciated]
 pub struct TattooUI {
     #[nwg_control(size: (300, 230), position: (300, 300), title: "Tattoo")]
     #[nwg_events( OnWindowClose: [TattooUI::safely_exit] )]
@@ -41,6 +42,7 @@ pub struct TattooUI {
     commit: nwg::Button,
 }
 
+#[depreciated]
 impl TattooUI {
     fn confirm_input(&self) {
         registry::assettag::set(self.get_asset_tag());
@@ -92,6 +94,7 @@ impl TattooUI {
 
 }
 
+#[depreciated]
 pub fn begin_ui() {
     let mut _asset_tag = "".to_string();
     let mut _manufacturer = "".to_string();
