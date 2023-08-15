@@ -13,9 +13,11 @@ use winreg::RegKey;
 /// 
 pub fn get() -> String {
     let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
-    let cur_ver = hklm.open_subkey("SOFTWARE\\Tattoo").expect("");
+    let cur_ver = hklm.open_subkey("SOFTWARE\\Tattoo");
 
-    let asset_tag = cur_ver.get_value("asset_tag").unwrap_or("".to_string());
+    let mut asset_tag: String = String::from("");
+    if cur_ver.is_err() { asset_tag = String::from("Error, unable to open registry, please run as administrator."); }
+    if cur_ver.is_ok() { asset_tag = cur_ver.unwrap().get_value("asset_tag").unwrap_or("".to_string()); }
 
     asset_tag
 }
