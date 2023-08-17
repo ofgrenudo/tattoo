@@ -18,11 +18,15 @@ struct Args {
     )]
     serial_number: bool,
 
-    #[arg(long, help = "Returns the defined asset tag", default_value_t = false)]
-    asset_tag: bool,
+    #[arg(
+        long = "asset-tag",
+        help = "Returns the defined asset tag",
+        default_value_t = false
+    )]
+    get_asset_tag: bool,
 
-    #[arg(long, help = "Assigns the asset tag")]
-    set_asset_tag: Option<String>,
+    #[arg(long = "set-asset-tag", help = "Assigns the asset tag")]
+    asset_tag: Option<String>,
 
     #[arg(
         long,
@@ -50,17 +54,17 @@ fn main() {
     if args.serial_number {
         println!("Serial Number: {}", device::serialnumber::get());
     }
-    if args.asset_tag {
+    if args.get_asset_tag {
         println!("Asset Tag: {}", registry::assettag::get());
     }
 
-    if args.set_asset_tag.is_some() {
-        registry::assettag::set(args.set_asset_tag.unwrap_or("".to_string()));
+    if args.asset_tag.is_some() {
+        registry::assettag::set(args.asset_tag.unwrap_or("".to_string()));
     }
 
     // This is our default behavoiur, what will we do. Basically, since all values are default we will take the inverse of that.
     // If any one value is set to true, then it will become false and this will into run.
-    if !(args.serial_number || args.make || args.model || args.asset_tag) {
+    if !(args.serial_number || args.make || args.model || args.get_asset_tag) {
         println!(
             "Make: {}\nModel: {}\nSerial Number: {}\nAsset Tag: {}",
             device::make::get(),
