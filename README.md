@@ -29,6 +29,26 @@ Modern IT operations demand efficient and accurate methods of maintaining device
 
 **Registry Storage**: Device data is stored securely in the Windows registry, ensuring data integrity and persistence across device reboots.
 
+## Example Usage
+
+The below is some sample usage of when you run the program using the `--help` key.
+
+```text
+Automatically collect device information on run, and insert it into the registry of the device.
+
+Usage: tattoo.exe [OPTIONS]
+
+Options:
+      --make                       Returns the computer make
+      --model                      Returns the computer model
+      --serial-number              Returns the computer serial number
+      --asset-tag                  Returns the defined asset tag
+      --set-asset-tag <ASSET_TAG>  Assigns the asset tag
+      --update                     Updates hardware values into the registry (must be ran as administrator)
+  -h, --help                       Print help
+  -V, --version                    Print version
+```
+
 ## Getting Started
 
 To begin using the Tattoo, follow these simple steps:
