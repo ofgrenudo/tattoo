@@ -1,7 +1,6 @@
 use clap::Parser;
 use tattoo_lib::{device, registry};
 
-// todo!() need to research into making an option be either true or false, if true contain a value
 #[derive(Parser, Debug)]
 #[command(author = env!("CARGO_PKG_AUTHORS"), version = env!("CARGO_PKG_VERSION"), about = env!("CARGO_PKG_DESCRIPTION"))]
 struct Args {
