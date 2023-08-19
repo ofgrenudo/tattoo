@@ -1,8 +1,4 @@
-# Keep these files maybe?
-!/target/debug/tattoo.exe.manifest
-!/target/release/tattoo.exe.manifest
-
-# Get rid of these files
+#Get rid of these files
 .vscode/
 /target
 Cargo.lock
