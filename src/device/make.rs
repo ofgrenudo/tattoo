@@ -1,15 +1,14 @@
 use std::process::Command;
 
-
 /// This function returns a string. It works by contacting parsing a wmic command containing the manufacturer registered in the devices bios.
-/// 
+///
 /// # Examples
 /// ```rust,ignore
 /// use tattoo_lib::device;
-/// 
+///
 /// let make: String = device::make::get();
 /// ```
-/// 
+///
 pub fn get() -> String {
     let output = Command::new("cmd")
         .args(["/C", "wmic computersystem get manufacturer"])

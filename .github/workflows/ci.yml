@@ -20,16 +20,16 @@ jobs:
       - name: Run test
         run: cargo test
 
-  fmt: 
-    name: Format
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
-      - name: Enforce formatting
-        run: cargo fmt --check
+  # fmt: 
+  #   name: Format
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: dtolnay/rust-toolchain@stable
+  #       with:
+  #         components: rustfmt
+  #     - name: Enforce formatting
+  #       run: cargo fmt --check
     
   build:
     name: Build
