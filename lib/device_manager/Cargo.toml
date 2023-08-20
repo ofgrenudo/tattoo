@@ -1,7 +1,11 @@
 [package]
 name = "device_manager"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
+authors = [ "Joshua Winters-Brown" ]
+readme = "README.md"
+license-file = "LICENSE.md"
+repository = "https://github.com/ofgrenudo/tattoo"
 
 [dependencies]
 winreg = "0.51.0"
