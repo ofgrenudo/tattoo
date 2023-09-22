@@ -61,6 +61,7 @@ pub fn get() -> Result<String, RegistryOutcomes> {
     let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
     let provided_sub_key = "SOFTWARE\\Tattoo".to_string();
     let current_version = hklm.open_subkey(provided_sub_key);
+    let _key = hklm.create_subkey("SOFTWARE\\Tattoo".to_string()).unwrap();
 
     // What happens if we derail?
     if current_version.is_err() { return Err(RegistryOutcomes::CannotReadRegistry); }    
@@ -101,8 +102,9 @@ pub fn set(input: String) -> Result<RegistryOutcomes, RegistryOutcomes> {
     let key_name = "asset_tag".to_string();
     let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
     let provided_sub_key = "SOFTWARE\\Tattoo".to_string();
-    let current_version = hklm.open_subkey(provided_sub_key);
-
+    let current_version = hklm.open_subkey(provided_sub_key);   
+    let _key = hklm.create_subkey("SOFTWARE\\Tattoo".to_string()).unwrap();
+    
     // What happens if we derail?
     if current_version.is_err() { return Err(RegistryOutcomes::CannotReadRegistry); }// Could not read registry. Run as admin! 
     let hklm_path = Path::new("Software").join("Tattoo");

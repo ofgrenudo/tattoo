@@ -45,6 +45,8 @@ fn main() {
     //println!("{:?}", args); // This is a nice way to debug when adding new commands
 
     if args.update {
+        let _initalize_registry_folder = registry::manufacturer::set(system::manufacturer::get().unwrap());
+        
         let _ = registry::manufacturer::set(system::manufacturer::get().unwrap());
         let _ = registry::model::set(system::model::get().unwrap());
         let _ = registry::serial_number::set(system::serial_number::get().unwrap());
@@ -74,7 +76,7 @@ fn main() {
             system::manufacturer::get().unwrap(),
             system::model::get().unwrap(),
             system::serial_number::get().unwrap(),
-            registry::asset_tag::get().unwrap()
+            registry::asset_tag::get().unwrap_or("Null".to_string())
         );
     }
 }
