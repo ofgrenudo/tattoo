@@ -1,6 +1,7 @@
 use clap::Parser;
-//use tattoo_lib::{device, registry};
 use device_manager::{registry, system};
+
+slint::include_modules!();
 
 #[derive(Parser, Debug)]
 #[command(author = env!("CARGO_PKG_AUTHORS"), version = env!("CARGO_PKG_VERSION"), about = env!("CARGO_PKG_DESCRIPTION"))]
@@ -50,7 +51,7 @@ struct Args {
     update: bool,
 }
 
-fn main() {
+fn main() -> Result<(), slint::PlatformError> {
     let args = Args::parse();
     //println!("{:?}", args); // This is a nice way to debug when adding new commands
 
@@ -98,98 +99,16 @@ fn main() {
         //     registry::status::get().unwrap_or("Null".to_string()),
         //     registry::asset_tag::get().unwrap_or("Null".to_string())
         // );
-        slint::slint! {
-            import { Button, VerticalBox} from "std-widgets.slint";
     
-            export global SystemInformation { 
-                in property <string> manufacturer;
-                in property <string> model;
-                in property <string> serial_number;
-                in property <string> status;
-                in property <string> asset_tag;
-            }
-    
-            export component App inherits Window {
-                always-on-top: true;
-                default-font-size: 24px;
-                title: "Tattoo";
-                VerticalBox {
-                    padding: 50px;
-                    spacing: 12px;
-    
-                    HorizontalLayout {
-    
-                        Text { 
-                            text: "Manufacturer: ";
-                        }
-                        
-                        TextInput {
-                            text: SystemInformation.manufacturer;
-                            horizontal-alignment: right; 
-                            read-only: true;
-                        }
-                    }
-    
-                    HorizontalLayout {
-                        Text { 
-                            text: "Model Name:  ";
-                        }
-                        
-                        TextInput {
-                            text: SystemInformation.model;
-                            horizontal-alignment: right; 
-                            read-only: true;
-                        }
-                    }
-    
-                    HorizontalLayout {
-                        Text { 
-                            text: "Serial Number: ";
-                        }
-                        
-                        TextInput {
-                            text: SystemInformation.serial-number;
-                            horizontal-alignment: right; 
-                            read-only: true;
-                        }
-                    }
-    
-                    HorizontalLayout {
-                        Text { 
-                            text: "Status: ";
-                        }
-                        
-                        TextInput {
-                            text: SystemInformation.status;
-                            horizontal-alignment: right; 
-                            read-only: true;
-                        }
-                    }
-    
-                    HorizontalLayout {
-                        Text { 
-                            text: "Asset Tag: ";
-                        }
-                        
-                        TextInput {
-                            text: SystemInformation.asset-tag;
-                            horizontal-alignment: right; 
-                            read-only: true;
-                        }
-                    }
-                }
-            }
-        }
-    
-        let app = App::new().unwrap();
-        app.global::<SystemInformation>().set_manufacturer(system::manufacturer::get().unwrap_or("Null".to_string()).into());
-        app.global::<SystemInformation>().set_model(system::model::get().unwrap_or("Null".to_string()).into());
-        app.global::<SystemInformation>().set_serial_number(system::serial_number::get().unwrap_or("Null".to_string()).into());
-        app.global::<SystemInformation>().set_status(registry::status::get().unwrap_or("Null".to_string()).into());
-        app.global::<SystemInformation>().set_asset_tag(registry::asset_tag::get().unwrap_or("Null".to_string()).into());
+        let ui = AppWindow::new()?;
+        ui.global::<SystemInformation>().set_manufacturer(system::manufacturer::get().unwrap_or("Null".to_string()).into());
+        ui.global::<SystemInformation>().set_model(system::model::get().unwrap_or("Null".to_string()).into());
+        ui.global::<SystemInformation>().set_serial_number(system::serial_number::get().unwrap_or("Null".to_string()).into());
+        ui.global::<SystemInformation>().set_status(registry::status::get().unwrap_or("Null".to_string()).into());
+        ui.global::<SystemInformation>().set_asset_tag(registry::asset_tag::get().unwrap_or("Null".to_string()).into());
         // Example, Getting data.
         // println!("{}", app.global::<SystemInformation>().get_asset_tag());
-        app.run().unwrap()    
+        return ui.run();
     }
 
     std::process::exit(1)

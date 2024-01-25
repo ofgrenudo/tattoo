@@ -1,87 +1,52 @@
-import { Button, VerticalBox} from "std-widgets.slint";
-
-export component App inherits Window {
+import { HorizontalBox, VerticalBox, Button, LineEdit, TextEdit} from "std-widgets.slint";
+export global SystemInformation {
+    in property <string> manufacturer;
+    in property <string> model;
+    in property <string> serial_number;
+    in property <string> status;
+    in property <string> asset_tag;
+}
+export component AppWindow inherits Window {
+    min-height: 380px;
+    max-height: 380px;
+    min-width: 500px;
+    max-width: 500px;
     always-on-top: true;
-    default-font-size: 24px;
+    // default-font-size: 14px;
     title: "Tattoo";
+
     VerticalBox {
-        padding: 50px;
-        spacing: 24px;
-
-        HorizontalLayout {
-
-            Text { 
-                text: "Manufacturer: ";
-                font-size: 24px;
-            }
-            
-            TextInput {
-                text: "Asus";
-                font-size: 24px;
-                horizontal-alignment: right; 
-                read-only: true;
-            }
+        
+        HorizontalBox {
+            spacing: 50px;
+            Text { text: "Manufacturer"; vertical-alignment: center; font-size: 14px;}
+            TextEdit { text: SystemInformation.manufacturer; height: 40px; }
+        }
+        
+        HorizontalBox {
+            spacing: 93px;
+            Text { text: "Model"; vertical-alignment: center; font-size: 14px;}
+            TextEdit { text: SystemInformation.model; height: 40px; }
+        }
+        
+        HorizontalBox {
+            spacing: 42px;
+            Text { text: "Serial Number"; vertical-alignment: center; font-size: 14px;}
+            TextEdit { text: SystemInformation.serial-number; height: 40px; }
+        }
+        
+        HorizontalBox {
+            spacing: 92px;
+            Text { text: "Status"; vertical-alignment: center; font-size: 14px;}
+            TextEdit { text: SystemInformation.status; height: 40px; }
         }
 
-        HorizontalLayout {
-            Text { 
-                text: "Model Name:  ";
-                font-size: 24px;
-            }
-            
-            TextInput {
-                text: "ZenBook UZN900";
-                font-size: 24px;
-                horizontal-alignment: right; 
-                read-only: true;
-            }
+        HorizontalBox {
+            spacing: 69px;
+            Text { text: "Asset Tag"; vertical-alignment: center; font-size: 14px;}
+            LineEdit { text: SystemInformation.asset-tag; height: 40px; }
         }
 
-        HorizontalLayout {
-            Text { 
-                text: "Serial Number: ";
-                font-size: 24px;
-            }
-            
-            TextInput {
-                text: "USZ89DLA3N";
-                font-size: 24px;
-                horizontal-alignment: right; 
-                read-only: true;
-            }
-        }
-
-        HorizontalLayout {
-            Text { 
-                text: "Status: ";
-                font-size: 24px;
-            }
-            
-            TextInput {
-                text: "Capital";
-                font-size: 24px;
-                horizontal-alignment: right; 
-                read-only: false;
-            }
-        }
-
-        HorizontalLayout {
-            Text { 
-                text: "Asset Tag: ";
-                font-size: 24px;
-            }
-            
-            TextInput {
-                text: "1234567890";
-                font-size: 24px;
-                horizontal-alignment: right; 
-                read-only: false;
-            }
-        }
-
-        Button {
-            text: "Submit";
-        }
-
+        Button { text: "Save"; height: 40px;}
     }
 }
