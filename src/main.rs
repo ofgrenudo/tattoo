@@ -87,7 +87,7 @@ fn main() {
 
     // This is our default behavoiur, what will we do. Basically, since all values are default we will take the inverse of that.
     // If any one value is set to true, then it will become false and this will into run.
-    if !(args.serial_number || args.manufacturer || args.model || args.get_asset_tag) {
+    if !(args.serial_number || args.manufacturer || args.model || args.get_asset_tag || args.get_status) {
         println!(
             "Manufacturer: {}\nModel: {}\nSerial Number: {}\nStatus: {}\nAsset Tag: {}",
             system::manufacturer::get().unwrap(),
