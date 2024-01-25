@@ -11,5 +11,7 @@ license-file = "LICENSE.md"
 [dependencies]
 clap = { version = "4.3.21", features = ["derive"] }
 device_manager = { path = "lib/device_manager"}
+slint = "1.3.2"
 
-
+[build-dependencies]
+slint-build = "0.2.0"
