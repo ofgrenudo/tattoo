@@ -109,7 +109,7 @@ pub fn set(input: String) -> Result<RegistryOutcomes, RegistryOutcomes> {
     if current_version.is_err() { return Err(RegistryOutcomes::CannotReadRegistry); }// Could not read registry. Run as admin! 
     let hklm_path = Path::new("Software").join("Tattoo");
 
-    // This will bassicaly, confirm that the key exists. If its not there it creates it. If it is then it returns an operator.
+    // This will basically, confirm that the key exists. If its not there it creates it. If it is then it returns an operator.
     let attempt_create = hklm.create_subkey(&hklm_path);
     if attempt_create.is_err() { return Err(RegistryOutcomes::CouldNotCreateSubPath); }
 

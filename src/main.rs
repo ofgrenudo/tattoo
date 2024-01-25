@@ -23,6 +23,16 @@ struct Args {
     serial_number: bool,
 
     #[arg(
+        long = "status",
+        help = "Returns the defined status",
+        default_value_t = false
+    )]
+    get_status: bool,
+
+    #[arg(long = "set-status", help = "Assigns the status")]
+    status: Option<String>,
+
+    #[arg(
         long = "asset-tag",
         help = "Returns the defined asset tag",
         default_value_t = false
@@ -63,6 +73,13 @@ fn main() {
     if args.get_asset_tag {
         println!("Asset Tag: {}", registry::asset_tag::get().unwrap());
     }
+    if args.get_status {
+        println!("Status: {}", registry::status::get().unwrap());
+    }
+
+    if args.status.is_some() {
+        let _ = registry::status::set(args.status.unwrap_or("".to_string()));
+    }
 
     if args.asset_tag.is_some() {
         let _ = registry::asset_tag::set(args.asset_tag.unwrap_or("".to_string()));
@@ -72,10 +89,11 @@ fn main() {
     // If any one value is set to true, then it will become false and this will into run.
     if !(args.serial_number || args.manufacturer || args.model || args.get_asset_tag) {
         println!(
-            "manufacturer: {}\nModel: {}\nSerial Number: {}\nAsset Tag: {}",
+            "Manufacturer: {}\nModel: {}\nSerial Number: {}\nStatus: {}\nAsset Tag: {}",
             system::manufacturer::get().unwrap(),
             system::model::get().unwrap(),
             system::serial_number::get().unwrap(),
+            registry::status::get().unwrap_or("Null".to_string()),
             registry::asset_tag::get().unwrap_or("Null".to_string())
         );
     }

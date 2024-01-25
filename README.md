@@ -39,9 +39,11 @@ Automatically collect device information on run, and insert it into the registry
 Usage: tattoo.exe [OPTIONS]
 
 Options:
-      --make                       Returns the computer make
+      --manufacturer               Returns the computer manufacturer
       --model                      Returns the computer model
       --serial-number              Returns the computer serial number
+      --status                     Returns the defined status
+      --set-status <STATUS>        Assigns the status
       --asset-tag                  Returns the defined asset tag
       --set-asset-tag <ASSET_TAG>  Assigns the asset tag
       --update                     Updates hardware values into the registry (must be ran as administrator)
