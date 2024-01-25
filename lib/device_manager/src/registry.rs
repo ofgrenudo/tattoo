@@ -32,3 +32,5 @@ pub mod manufacturer;
 pub mod model;
 /// Gather and set device Serial Number in the registry.
 pub mod serial_number;
+/// Gather and set device Status in the registry.
+pub mod status;
