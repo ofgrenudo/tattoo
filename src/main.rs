@@ -1,128 +1,132 @@
-use clap::Parser;
 use device_manager::{registry, system};
+slint::include_modules!();
+use std::io::prelude::*;
+use clap::Parser;
+use std::io;
 mod rights;
 
-slint::include_modules!();
 
+// Note, im attempting to keep this in alphabetical order for the most part.
 #[derive(Parser, Debug)]
-#[command(author = env!("CARGO_PKG_AUTHORS"), version = env!("CARGO_PKG_VERSION"), about = env!("CARGO_PKG_DESCRIPTION"))]
-struct Args {
-    #[arg(
-        long,
-        help ="Returns all device information",
-        default_value_t = false
-    )]
+#[command(author, version, about)]
+struct Cli {
+    
+    #[arg(short='a', long,
+    help = "Returns all device information.")]
     all: bool,
 
-    #[arg(
-        long,
-        help = "Returns the computer manufacturer",
-        default_value_t = false
-    )]
-    manufacturer: bool,
+    #[arg(short='t', long,
+    help = "Returns the device asset tag.")]
+    asset_tag: bool,
 
-    #[arg(long, help = "Returns the computer model", default_value_t = false)]
+    #[arg(short='T', long, default_value = "someting_a_client_wouldnt_use",
+    help = "Inserts the device asset tag provided.")]
+    set_asset_tag: String,
+
+    #[arg(short='M', long,
+    help = "Returns the device manufacturer.")]
+    manufacturer: bool,
+    
+    #[arg(short='m', long,
+    help = "Returns the device model.")]
     model: bool,
 
-    #[arg(
-        long,
-        help = "Returns the computer serial number",
-        default_value_t = false
-    )]
-    serial_number: bool,
+    #[arg(short='n', long,
+    help = "Returns the device serial number.")]
+    serial_number: bool,    
 
-    #[arg(
-        long = "status",
-        help = "Returns the defined status",
-        default_value_t = false
-    )]
-    get_status: bool,
+    #[arg(short='s', long,
+    help = "Returns the device status.")]
+    status: bool,
+    
+    #[arg(short='S', long, default_value = "someting_a_client_wouldnt_use",
+    help = "Inserts the device status with the string provided.")]
+    set_status: String,
 
-    #[arg(long = "set-status", help = "Assigns the status")]
-    status: Option<String>,
-
-    #[arg(
-        long = "asset-tag",
-        help = "Returns the defined asset tag",
-        default_value_t = false
-    )]
-    get_asset_tag: bool,
-
-    #[arg(long = "set-asset-tag", help = "Assigns the asset tag")]
-    asset_tag: Option<String>,
-
-    #[arg(
-        long,
-        help = "Updates hardware values into the registry (must be ran as administrator)",
-        default_value_t = false
-    )]
-    update: bool,
+    #[arg(short='u', long,
+    help = "Inserts all device information into the registry.")]
+    update: bool,    
 }
 
+
+// !TODO: Eventually, Id like for a slint notification window to pop up when we use this instead of the terminal.
+fn pause() {
+    let mut stdin = io::stdin();
+    let mut stdout = io::stdout();
+    // We want the cursor to stay at the end of the line, so we print without a newline and flush manually.
+    write!(stdout, "Press enter to continue...").unwrap();
+    stdout.flush().unwrap();
+    // Read a single byte and discard
+    let _ = stdin.read(&mut [0u8]).unwrap();
+}
+
+
 fn main() -> Result<(), slint::PlatformError> {
-    let args = Args::parse();
-    // println!("{:?}", args); // This is a nice way to debug when adding new commands
-    if !rights::is_app_elevated() {
-        // PermissionError::new().unwrap().run().unwrap();
-        println!("Please run this application as an administrator.")
-    } 
-
-    if args.update {
-        let _initalize_registry_folder = registry::manufacturer::set(system::manufacturer::get().unwrap());
-        
-        let _ = registry::manufacturer::set(system::manufacturer::get().unwrap());
-        let _ = registry::model::set(system::model::get().unwrap());
-        let _ = registry::serial_number::set(system::serial_number::get().unwrap());
-        std::process::exit(0)
-    }
-    if args.manufacturer {
-        println!("{}", system::manufacturer::get().unwrap());
-    }
-    if args.model {
-        println!("{}", system::model::get().unwrap());
-    }
-    if args.serial_number {
-        println!("{}", system::serial_number::get().unwrap());
-    }
-    if args.get_asset_tag {
-        println!("{}", registry::asset_tag::get().unwrap());
-    }
-    if args.get_status {
-        println!("{}", registry::status::get().unwrap());
+    // Check if the application is running as an administrator.
+    if !rights::is_app_elevated() { 
+        println!("Please run this application as an administrator!");
+        pause();
+        std::process::exit(5); // This Error Code is in accordance to the Windows Error Code 5 (ERROR_ACCESS_DENIED)
     }
 
-    if args.status.is_some() {
-        let _ = registry::status::set(args.status.unwrap_or("".to_string()));
-        std::process::exit(0)
-    }
-    if args.asset_tag.is_some() {
-        let _ = registry::asset_tag::set(args.asset_tag.unwrap_or("".to_string()));
-        std::process::exit(0)
-    }
-
-    if args.all {
+    let cli = Cli::parse();
+    // println!("{:?}", cli); // A great way to debug when adding new parameters.
+    
+    // process --all
+    if cli.all {
         println!(
             "Manufacturer: {}\nModel: {}\nSerial Number: {}\nStatus: {}\nAsset Tag: {}",
-            system::manufacturer::get().unwrap(),
-            system::model::get().unwrap(),
-            system::serial_number::get().unwrap(),
+            system::manufacturer::get().unwrap_or("Null".to_string()),
+            system::model::get().unwrap_or("Null".to_string()),
+            system::serial_number::get().unwrap_or("Null".to_string()),
             registry::status::get().unwrap_or("Null".to_string()),
             registry::asset_tag::get().unwrap_or("Null".to_string())
         );
         std::process::exit(0);
+    } 
+    // process --asset-tag
+    if cli.asset_tag { println!("{}", registry::asset_tag::get().unwrap_or("Null".to_string()))}
+    // process --set-asset-tag
+    if cli.set_asset_tag != "someting_a_client_wouldnt_use".to_string() { 
+        let _ = registry::asset_tag::set(cli.set_asset_tag).unwrap();
+        std::process::exit(0);    
     }
+    // process --manufacturer
+    if cli.manufacturer { println!("{}", system::manufacturer::get().unwrap_or("Null".to_string()))}
+    // process --model
+    if cli.model { println!("{}", system::model::get().unwrap_or("Null".to_string()))}
+    // process --serial_number
+    if cli.serial_number { println!("{}", system::serial_number::get().unwrap_or("Null".to_string()))}
+    // process --status
+    if cli.status { println!("{}", registry::status::get().unwrap_or("Null".to_string()))}
+    // process --set-status
+    if cli.set_status != "someting_a_client_wouldnt_use" { 
+        let _ = registry::status::set(cli.set_status).unwrap();
+        std::process::exit(0);
+    }
+    // process --update
+    if cli.update {
+        let _initalize_registry_folder = registry::manufacturer::set(system::manufacturer::get().unwrap());
+        let _ = registry::manufacturer::set(system::manufacturer::get().unwrap());
+        let _ = registry::model::set(system::model::get().unwrap());
+        let _ = registry::serial_number::set(system::serial_number::get().unwrap());
+        std::process::exit(0);
+    } 
 
-    //This is our default behavoiur, what will we do. Basically, since all values are default we will take the inverse of that.
-    //f any one value is set to true, then it will become false and this will into run.
-    if !(args.serial_number || args.manufacturer || args.model || args.get_asset_tag || args.get_status) {
+    // process no options, just program ? 
+    if !(cli.asset_tag || cli.manufacturer || cli.model || cli.serial_number || cli.status || cli.update) {
+        // Loadup UI
         let ui = AppWindow::new()?;
+        // Set Global Variables for Slint
         ui.global::<SystemInformation>().set_manufacturer(system::manufacturer::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_model(system::model::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_serial_number(system::serial_number::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_status(registry::status::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_asset_tag(registry::asset_tag::get().unwrap_or("Null".to_string()).into());
+        // Actually show the window.
         return ui.run();
     }
 
-    std::process::exit(1)
+
+    std::process::exit(0)
 }
