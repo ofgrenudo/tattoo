@@ -20,25 +20,25 @@ export component AppWindow inherits Window {
         HorizontalBox {
             spacing: 50px;
             Text { text: "Manufacturer"; vertical-alignment: center; font-size: 14px;}
-            TextEdit { text: SystemInformation.manufacturer; height: 40px; }
+            LineEdit { text: SystemInformation.manufacturer; height: 40px; read-only: true; }
         }
         
         HorizontalBox {
             spacing: 93px;
             Text { text: "Model"; vertical-alignment: center; font-size: 14px;}
-            TextEdit { text: SystemInformation.model; height: 40px; }
+            LineEdit { text: SystemInformation.model; height: 40px; read-only: true; }
         }
         
         HorizontalBox {
             spacing: 42px;
             Text { text: "Serial Number"; vertical-alignment: center; font-size: 14px;}
-            TextEdit { text: SystemInformation.serial-number; height: 40px; }
+            LineEdit { text: SystemInformation.serial-number; height: 40px; read-only: true; }
         }
         
         HorizontalBox {
             spacing: 92px;
             Text { text: "Status"; vertical-alignment: center; font-size: 14px;}
-            TextEdit { text: SystemInformation.status; height: 40px; }
+            LineEdit { text: SystemInformation.status; height: 40px; }
         }
 
         HorizontalBox {
