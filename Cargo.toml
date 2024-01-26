@@ -1,6 +1,6 @@
 [package]
 name = "tattoo"
-version = "0.4.4"
+version = "0.4.9"
 edition = "2021"
 authors = [ "Joshua Winters-Brown" ]
 readme = "README.md"
