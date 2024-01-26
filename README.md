@@ -25,8 +25,6 @@ Modern IT operations demand efficient and accurate methods of maintaining device
 
 **Ease of Deployment**: Installing the application is a straightforward process, allowing users to quickly integrate the system into their existing infrastructure.
 
-**Web Server Integration**: Device information is securely sent to a dedicated web server, enabling centralized storage and easy access through a user-friendly web interface.
-
 **Registry Storage**: Device data is stored securely in the Windows registry, ensuring data integrity and persistence across device reboots.
 
 ## Example Usage
@@ -81,4 +79,14 @@ We have ambitious plans to enhance the Tattoo in the future:
 
 ## Contributing
 
-We welcome contributions from the community! Whether you're a developer, designer, or just have great ideas, your input is valuable.
+We welcome contributions from the community! Whether you're a developer, designer, or just have great ideas, your input is valuable. To begin making contributions you will need to do the following
+
+**Fork the Repository**: Forking the repository is important because this is how you will make your contributions independent of the master code base.
+
+**Develop your changes**: Develop your changes, and commit them to a feature branch on your local codebase.
+
+**Open a Pull Request**: Open a pull request with a detailed comment on the things that you changed, why and what features you have added. Additionally, you can include screenshots with any visual changes you may have made.
+
+**Wait and respond to any comments**
+
+Thank you for your contribution!

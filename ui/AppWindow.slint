@@ -1,0 +1,50 @@
+import { HorizontalBox, VerticalBox, Button, LineEdit, TextEdit} from "std-widgets.slint";
+export global SystemInformation {
+    in-out property <string> manufacturer;
+    in-out property <string> model;
+    in-out property <string> serial_number;
+    in-out property <string> status;
+    in-out property <string> asset_tag;
+}
+export component AppWindow inherits Window {
+    min-height: 340px;
+    max-height: 340px;
+    min-width: 500px;
+    max-width: 500px;
+    always-on-top: true;
+    // default-font-size: 14px;
+    title: "Tattoo";
+
+    VerticalBox {
+        
+        HorizontalBox {
+            spacing: 50px;
+            Text { text: "Manufacturer"; vertical-alignment: center; font-size: 14px;}
+            LineEdit { text: SystemInformation.manufacturer; height: 40px; read-only: true; }
+        }
+        
+        HorizontalBox {
+            spacing: 93px;
+            Text { text: "Model"; vertical-alignment: center; font-size: 14px;}
+            LineEdit { text: SystemInformation.model; height: 40px; read-only: true; }
+        }
+        
+        HorizontalBox {
+            spacing: 42px;
+            Text { text: "Serial Number"; vertical-alignment: center; font-size: 14px;}
+            LineEdit { text: SystemInformation.serial-number; height: 40px; read-only: true; }
+        }
+        
+        HorizontalBox {
+            spacing: 92px;
+            Text { text: "Status"; vertical-alignment: center; font-size: 14px;}
+            LineEdit { text: SystemInformation.status; height: 40px; read-only: true; }
+        }
+
+        HorizontalBox {
+            spacing: 69px;
+            Text { text: "Asset Tag"; vertical-alignment: center; font-size: 14px;}
+            LineEdit { text: SystemInformation.asset-tag; height: 40px; read-only: true; }
+        }
+    }
+}
