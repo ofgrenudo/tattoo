@@ -1,14 +1,14 @@
 import { HorizontalBox, VerticalBox, Button, LineEdit, TextEdit} from "std-widgets.slint";
 export global SystemInformation {
-    in property <string> manufacturer;
-    in property <string> model;
-    in property <string> serial_number;
-    in property <string> status;
-    in property <string> asset_tag;
+    in-out property <string> manufacturer;
+    in-out property <string> model;
+    in-out property <string> serial_number;
+    in-out property <string> status;
+    in-out property <string> asset_tag;
 }
 export component AppWindow inherits Window {
-    min-height: 380px;
-    max-height: 380px;
+    min-height: 340px;
+    max-height: 340px;
     min-width: 500px;
     max-width: 500px;
     always-on-top: true;
@@ -38,15 +38,13 @@ export component AppWindow inherits Window {
         HorizontalBox {
             spacing: 92px;
             Text { text: "Status"; vertical-alignment: center; font-size: 14px;}
-            LineEdit { text: SystemInformation.status; height: 40px; }
+            LineEdit { text: SystemInformation.status; height: 40px; read-only: true; }
         }
 
         HorizontalBox {
             spacing: 69px;
             Text { text: "Asset Tag"; vertical-alignment: center; font-size: 14px;}
-            LineEdit { text: SystemInformation.asset-tag; height: 40px; }
+            LineEdit { text: SystemInformation.asset-tag; height: 40px; read-only: true; }
         }
-
-        Button { text: "Save"; height: 40px;}
     }
 }
