@@ -1,5 +1,6 @@
 use clap::Parser;
 use device_manager::{registry, system};
+mod rights;
 
 slint::include_modules!();
 
@@ -60,7 +61,11 @@ struct Args {
 
 fn main() -> Result<(), slint::PlatformError> {
     let args = Args::parse();
-    //println!("{:?}", args); // This is a nice way to debug when adding new commands
+    // println!("{:?}", args); // This is a nice way to debug when adding new commands
+    if !rights::is_app_elevated() {
+        // PermissionError::new().unwrap().run().unwrap();
+        println!("Please run this application as an administrator.")
+    } 
 
     if args.update {
         let _initalize_registry_folder = registry::manufacturer::set(system::manufacturer::get().unwrap());
@@ -116,8 +121,6 @@ fn main() -> Result<(), slint::PlatformError> {
         ui.global::<SystemInformation>().set_serial_number(system::serial_number::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_status(registry::status::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_asset_tag(registry::asset_tag::get().unwrap_or("Null".to_string()).into());
-        // Example, Getting data.
-        // println!("{}", app.global::<SystemInformation>().get_asset_tag());
         return ui.run();
     }
 
