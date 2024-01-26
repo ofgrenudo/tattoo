@@ -4,6 +4,8 @@
 
 Tattoo is a versatile tool designed to streamline the process of gathering essential hardware details from your computer and transmitting them to a designated web server. Whether you're a system administrator looking to efficiently manage a fleet of devices or an individual seeking a comprehensive overview of your machine's specifications, this system provides an intuitive and robust solution.
 
+![image](https://github.com/ofgrenudo/tattoo/assets/117940901/6d008bd2-07a9-442c-894d-6ab55f3ac6cf)
+
 ## Table of Contents
 
 - Introduction
