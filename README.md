@@ -57,27 +57,17 @@ To begin using the Tattoo, follow these simple steps:
 
 ## Installation
 
-**Download the Client Application**: Obtain the client application from [insert download link].
+**Download the Client Application**: Obtain the latest version from [https://github.com/ofgrenudo/tattoo/releases](https://github.com/ofgrenudo/tattoo/releases).
 
-**Run the Installer**: Execute the installer and follow the on-screen instructions to install the application on your device.
-
-## Usage
-
-**Launch the Application**: Once installed, launch the application. It will automatically gather relevant hardware information from your device.
-
-**Review and Confirm**: Carefully review the collected information, ensuring accuracy and completeness.
-
-**Transmission**: The application will securely transmit the data to the designated web server, where it will be stored for centralized access.
+From there you can run the application locally, by clicking on it and **running it as administrator**, or place the executable somewhere in your path. The recommended installation, if you intend to use this consistently, is to create a folder in `C:\Program Files` called `tattoo` and placing the executable there. Then modifying your path to include that folder.
 
 ## Future Enhancements
 
 We have ambitious plans to enhance the Tattoo in the future:
 
-**Graphical User Interface (GUI)**: We're working on developing a user-friendly GUI to complement the existing command-line interface, making the application even more accessible.
+- [x] **Graphical User Interface (GUI)**: We're working on developing a user-friendly GUI to complement the existing command-line interface, making the application even more accessible.
 
-**Customizable Data Gathering**: We're exploring options for users to customize the data collected based on their specific requirements.
-
-**Enhanced Reporting**: Detailed and insightful reports will be generated from the collected data, providing valuable insights for device management.
+- [ ] **Customizable Data Gathering**: We're exploring options for users to customize the data collected based on their specific requirements.
 
 ## Contributing
 
