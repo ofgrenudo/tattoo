@@ -8,6 +8,13 @@ slint::include_modules!();
 struct Args {
     #[arg(
         long,
+        help ="Returns all device information",
+        default_value_t = false
+    )]
+    all: bool,
+
+    #[arg(
+        long,
         help = "Returns the computer manufacturer",
         default_value_t = false
     )]
@@ -88,18 +95,21 @@ fn main() -> Result<(), slint::PlatformError> {
         std::process::exit(0)
     }
 
+    if args.all {
+        println!(
+            "Manufacturer: {}\nModel: {}\nSerial Number: {}\nStatus: {}\nAsset Tag: {}",
+            system::manufacturer::get().unwrap(),
+            system::model::get().unwrap(),
+            system::serial_number::get().unwrap(),
+            registry::status::get().unwrap_or("Null".to_string()),
+            registry::asset_tag::get().unwrap_or("Null".to_string())
+        );
+        std::process::exit(0);
+    }
+
     //This is our default behavoiur, what will we do. Basically, since all values are default we will take the inverse of that.
     //f any one value is set to true, then it will become false and this will into run.
     if !(args.serial_number || args.manufacturer || args.model || args.get_asset_tag || args.get_status) {
-        // println!(
-        //     "Manufacturer: {}\nModel: {}\nSerial Number: {}\nStatus: {}\nAsset Tag: {}",
-        //     system::manufacturer::get().unwrap(),
-        //     system::model::get().unwrap(),
-        //     system::serial_number::get().unwrap(),
-        //     registry::status::get().unwrap_or("Null".to_string()),
-        //     registry::asset_tag::get().unwrap_or("Null".to_string())
-        // );
-    
         let ui = AppWindow::new()?;
         ui.global::<SystemInformation>().set_manufacturer(system::manufacturer::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_model(system::model::get().unwrap_or("Null".to_string()).into());
