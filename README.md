@@ -34,8 +34,6 @@ Modern IT operations demand efficient and accurate methods of maintaining device
 The below is some sample usage of when you run the program using the `--help` key.
 
 ```text
-
-
 Automatically collect device information on run, and insert it into the registry of the device.
 
 Usage: tattoo.exe [OPTIONS]
