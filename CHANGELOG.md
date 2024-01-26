@@ -34,7 +34,7 @@ Breaking down the above example, there has been 1 major break in the API, 5 mino
 
 <!-- ## [Unreleased] -->
 
-# [1.0.0] - 2023-01-26
+# [1.0.1] - 2023-01-26
 
 ## Added
 
@@ -46,3 +46,6 @@ Breaking down the above example, there has been 1 major break in the API, 5 mino
 -   Breaking CLI Arguments.
 -   Changed UI library.
 
+## Fixed
+
+-   Fixed Bug that displayed an innapropriate default value to the client.

@@ -19,7 +19,7 @@ struct Cli {
     help = "Returns the device asset tag.")]
     asset_tag: bool,
 
-    #[arg(short='T', long, default_value = "someting_a_client_wouldnt_use",
+    #[arg(short='T', long, default_value = "None",
     help = "Inserts the device asset tag provided.")]
     set_asset_tag: String,
 
@@ -39,7 +39,7 @@ struct Cli {
     help = "Returns the device status.")]
     status: bool,
     
-    #[arg(short='S', long, default_value = "someting_a_client_wouldnt_use",
+    #[arg(short='S', long, default_value = "None",
     help = "Inserts the device status with the string provided.")]
     set_status: String,
 
@@ -87,7 +87,7 @@ fn main() -> Result<(), slint::PlatformError> {
     // process --asset-tag
     if cli.asset_tag { println!("{}", registry::asset_tag::get().unwrap_or("Null".to_string()))}
     // process --set-asset-tag
-    if cli.set_asset_tag != "someting_a_client_wouldnt_use".to_string() { 
+    if cli.set_asset_tag != "None".to_string() { 
         let _ = registry::asset_tag::set(cli.set_asset_tag).unwrap();
         std::process::exit(0);    
     }
@@ -100,7 +100,7 @@ fn main() -> Result<(), slint::PlatformError> {
     // process --status
     if cli.status { println!("{}", registry::status::get().unwrap_or("Null".to_string()))}
     // process --set-status
-    if cli.set_status != "someting_a_client_wouldnt_use" { 
+    if cli.set_status != "None" { 
         let _ = registry::status::set(cli.set_status).unwrap();
         std::process::exit(0);
     }
@@ -126,7 +126,5 @@ fn main() -> Result<(), slint::PlatformError> {
         // Actually show the window.
         return ui.run();
     }
-
-
     std::process::exit(0)
 }
