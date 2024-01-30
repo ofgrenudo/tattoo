@@ -34,6 +34,10 @@ Breaking down the above example, there has been 1 major break in the API, 5 mino
 
 # [Unreleased]
 
+- None
+
+# [Released]
+
 ## [1.3.3] - 2024-01-30
 
 ### Added 
@@ -49,8 +53,6 @@ Breaking down the above example, there has been 1 major break in the API, 5 mino
 ### Fixed
 
 - Fixed a bug where once you submitted the data, and then edited it again, the button retained a bad state.
-
-# [Released]
 
 ## [1.0.1] - 2024-01-26
 
