@@ -123,6 +123,40 @@ fn main() -> Result<(), slint::PlatformError> {
         ui.global::<SystemInformation>().set_serial_number(system::serial_number::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_status(registry::status::get().unwrap_or("Null".to_string()).into());
         ui.global::<SystemInformation>().set_asset_tag(registry::asset_tag::get().unwrap_or("Null".to_string()).into());
+        ui.global::<SystemInformation>().on_information_submitted({
+            let ui_handle = ui.as_weak();
+            move |new_asset_tag, new_status| {
+                let ui = ui_handle.unwrap();
+                let _initalize_registry_folder = registry::manufacturer::set(system::manufacturer::get().unwrap());
+                let _ = registry::manufacturer::set(system::manufacturer::get().unwrap());
+                let _ = registry::model::set(system::model::get().unwrap());
+                let _ = registry::serial_number::set(system::serial_number::get().unwrap());
+                let _ = registry::asset_tag::set(new_asset_tag.to_string());
+                let _ = registry::status::set(new_status.to_string());
+
+                ui.global::<SystemInformation>().set_button_enabled(false);
+                ui.global::<SystemInformation>().set_button_response("Submitted".to_string().into());
+            }
+        });
+        ui.global::<SystemInformation>().on_status_edited({
+            let ui_handle = ui.as_weak();
+            move |new_status| {
+                let ui = ui_handle.unwrap();
+                //println!("New Status: {}\tOld Staus: {}", new_status, ui.global::<SystemInformation>().get_status().to_string());
+                ui.global::<SystemInformation>().set_status(new_status);
+                if ui.global::<SystemInformation>().get_button_enabled() == false { ui.global::<SystemInformation>().set_button_enabled(true); ui.global::<SystemInformation>().set_button_response("Submit".to_string().into()); }
+            }
+        });
+        ui.global::<SystemInformation>().on_asset_tag_edited({
+            let ui_handle = ui.as_weak();
+            move |new_asset_tag| {
+                let ui = ui_handle.unwrap();
+                //println!("New Status: {}\tOld Staus: {}", new_asset_tag, ui.global::<SystemInformation>().get_asset_tag().to_string());
+                ui.global::<SystemInformation>().set_asset_tag(new_asset_tag);
+                if ui.global::<SystemInformation>().get_button_enabled() == false { ui.global::<SystemInformation>().set_button_enabled(true); ui.global::<SystemInformation>().set_button_response("Submit".to_string().into()); }
+
+            }
+        });
         // Actually show the window.
         return ui.run();
     }

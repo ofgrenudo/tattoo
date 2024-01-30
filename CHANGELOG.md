@@ -32,20 +32,38 @@ Example 1.5.16
 
 Breaking down the above example, there has been 1 major break in the API, 5 minor revisions or additions, and 16 bug fixes or resolutions. Please stick to this type of versioning.
 
-<!-- ## [Unreleased] -->
+# [Unreleased]
 
-# [1.0.1] - 2023-01-26
+## [1.3.3] - 2024-01-30
 
-## Added
+### Added 
+
+- You now have the abbility to commit changes to the registry via the UI!
+- Once you submit your changes, the submit button changes to submitted and disabled.
+- Once you edit values, the Submit button changes from submitted to submit and re-enables.
+
+### Changed
+
+- The default behavior when the application loads is that you have submitted the data already. This is because it is pulling from the registry.
+
+### Fixed
+
+- Fixed a bug where once you submitted the data, and then edited it again, the button retained a bad state.
+
+# [Released]
+
+## [1.0.1] - 2024-01-26
+
+### Added
 
 -   New functioning UI with SLINT.
 -   Admin Rights Detection.
 
-## Changed
+### Changed
 
 -   Breaking CLI Arguments.
 -   Changed UI library.
 
-## Fixed
+### Fixed
 
 -   Fixed Bug that displayed an innapropriate default value to the client.
