@@ -1,14 +1,19 @@
 import { HorizontalBox, VerticalBox, Button, LineEdit, TextEdit} from "std-widgets.slint";
 export global SystemInformation {
-    in-out property <string> manufacturer;
-    in-out property <string> model;
-    in-out property <string> serial_number;
-    in-out property <string> status;
-    in-out property <string> asset_tag;
+    in-out property <string> manufacturer: "Null";
+    in-out property <string> model: "Null";
+    in-out property <string> serial_number: "Null";
+    in-out property <string> status: "Null";
+    in-out property <string> asset_tag: "Null";
+    in-out property <string> button_response: "Submitted";
+    in-out property <bool> button_enabled: false;
+    callback information-submitted(string, string);
+    callback asset_tag_edited(string);
+    callback status_edited(string);
 }
 export component AppWindow inherits Window {
-    min-height: 340px;
-    max-height: 340px;
+    min-height: 380px;
+    max-height: 380px;
     min-width: 500px;
     max-width: 500px;
     always-on-top: true;
@@ -38,13 +43,27 @@ export component AppWindow inherits Window {
         HorizontalBox {
             spacing: 92px;
             Text { text: "Status"; vertical-alignment: center; font-size: 14px;}
-            LineEdit { text: SystemInformation.status; height: 40px; read-only: true; }
+            LineEdit { text: SystemInformation.status; height: 40px; read-only: false; edited => {
+              SystemInformation.status_edited(self.text);
+            }}
         }
 
         HorizontalBox {
             spacing: 69px;
             Text { text: "Asset Tag"; vertical-alignment: center; font-size: 14px;}
-            LineEdit { text: SystemInformation.asset-tag; height: 40px; read-only: true; }
+            LineEdit { text: SystemInformation.asset-tag; height: 40px; read-only: false; edited => {
+              SystemInformation.asset_tag_edited(self.text);
+            }}
+        }
+
+        HorizontalBox {
+            Button { 
+              text: SystemInformation.button_response;
+              enabled: SystemInformation.button_enabled;
+              clicked => {
+                SystemInformation.information-submitted(SystemInformation.asset-tag, SystemInformation.status);
+              }
+            }
         }
     }
 }
